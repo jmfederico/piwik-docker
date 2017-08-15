@@ -6,9 +6,18 @@ with systemd.
 ## How to install
   1. Launch a new CoreOS instance.
   - Download piwik and extract to `/srv/pwk/`.
-  ```
-  wget https://builds.piwik.org/piwik.zip && unzip piwik.zip -d /srv && mv /srv/piwik /srv/pwk
-  ```
+
+    ```
+    wget https://builds.piwik.org/piwik.zip
+    unzip piwik.zip -d /srv
+    mv /srv/piwik /srv/pwk
+    ```
+
+  - Make Piwik writable by php
+
+    ```
+    chown -R 82:82 /srv/pwk/
+    ```
 
   - Copy the content of this repo to `/srv/Docker`.
   - Symlink or copy each \*.system file to /etc/systemd/system:
@@ -36,7 +45,7 @@ with systemd.
     systemctl start caddy
     ```
 
-  - Go to the domain you set on your .env file and thats it.
+  - Go to the domain you set on your .env file and that's it.
 
 ## Questions:
 - Why /srv/pwk?
