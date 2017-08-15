@@ -1,0 +1,7 @@
+{$DOMAIN} {
+  tls {$LETSENCRYPT_EMAIL}
+  fastcgi / php-fpm:9000 php {
+    root /srv/caddy/html
+  }
+  header / Cache-Control "max-age=0"
+}

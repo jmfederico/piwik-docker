@@ -1,0 +1,18 @@
+[Unit]
+Description=MariaDB
+After=docker.service
+Requires=docker.service
+After=php.service
+Requires=php.service
+
+[Service]
+EnvironmentFile=/srv/Docker/caddy/.env
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill caddy
+ExecStartPre=-/usr/bin/docker rm caddy
+ExecStartPre=/usr/bin/docker pull alpine:latest
+ExecStartPre=/usr/bin/docker build -t caddy-pwk /srv/Docker/caddy
+ExecStart=/usr/bin/docker run --name caddy -p 80:80 -p 443:443 -v /srv/pwk:/srv/caddy/html -v /srv/caddy/config:/srv/caddy/.caddy --link php-fpm:php-fpm -e DOMAIN -e LETSENCRYPT_EMAIL caddy-pwk
+
+[Install]
+WantedBy=multi-user.target

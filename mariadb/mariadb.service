@@ -1,0 +1,15 @@
+[Unit]
+Description=MariaDB
+After=docker.service
+Requires=docker.service
+
+[Service]
+EnvironmentFile=/srv/Docker/mariadb/.env
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill mariadb
+ExecStartPre=-/usr/bin/docker rm mariadb
+ExecStartPre=/usr/bin/docker pull mariadb:latest
+ExecStart=/usr/bin/docker run --name mariadb -v /srv/mariadb/datadir:/var/lib/mysql -v /srv/mariadb/conf:/etc/mysql/conf.d -e MYSQL_RANDOM_ROOT_PASSWORD=yes -e MYSQL_DATABASE -e MYSQL_USER -e MYSQL_PASSWORD mariadb:latest
+
+[Install]
+WantedBy=multi-user.target
