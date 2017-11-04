@@ -34,7 +34,7 @@ services:
       - /srv/pwk:/srv/caddy/html
       - /srv/caddy/config:/srv/caddy/.caddy
     links:
-      - php
+      - php-fpm
     environment:
       - DOMAIN
       - LETSENCRYPT_EMAIL
