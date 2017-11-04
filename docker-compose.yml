@@ -1,0 +1,40 @@
+version: '2.1'
+services:
+  php-fpm:
+    build: ./php-fpm
+    restart: always
+    volumes:
+      - /srv/pwk:/srv/caddy/html
+    links:
+      - mariadb
+
+  mariadb:
+    image: mariadb:10
+    restart: always
+    env_file:
+      - mariadb/.env
+    volumes:
+      - /srv/mariadb/datadir:/var/lib/mysql
+      - /srv/mariadb/conf:/etc/mysql/conf.d
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+
+  caddy:
+    build: ./caddy
+    restart: always
+    env_file:
+      - caddy/.env
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /srv/pwk:/srv/caddy/html
+      - /srv/caddy/config:/srv/caddy/.caddy
+    links:
+      - php
+    environment:
+      - DOMAIN
+      - LETSENCRYPT_EMAIL
