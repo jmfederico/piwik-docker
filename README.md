@@ -20,10 +20,11 @@ with systemd.
     ```
 
   - Copy the content of this repo to `/srv/Docker`.
-  - Symlink or copy each \*.system file to /etc/systemd/system:
+  - Download Docker Compose (Check version, as it will change!)
 
     ```
-    ln -s /srv/Docker/*/*.service  /etc/systemd/system/
+    curl -L https://github.com/docker/compose/releases/download/1.17.0/docker-compose-`uname -s`-`uname -m` -o /opt/bin/docker-compose
+    chmod +x /opt/bin/docker-compose
     ```
 
   - Create your .env files and set variables values.
@@ -33,16 +34,12 @@ with systemd.
     cp /srv/Docker/mariadb/.env.example /srv/Docker/mariadb/.env
     ```
 
-  - Enable each service:
+  - Build and run containers:
 
     ```
-    systemctl enable caddy php mariadb
-    ```
-
-  - Start each service (starting caddy is enough):
-
-    ```
-    systemctl start caddy
+    cd /srv/Docker
+    docker-compose build
+    docker-compose up
     ```
 
   - Go to the domain you set on your .env file and that's it.
