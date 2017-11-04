@@ -39,7 +39,7 @@ with systemd.
     ```
     cd /srv/Docker
     docker-compose build
-    docker-compose up
+    docker-compose up -d
     ```
 
   - Go to the domain you set on your .env file and that's it.
