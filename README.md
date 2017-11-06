@@ -1,7 +1,7 @@
 # Piwik deployment with Docker
 
-Use these files to deploy Piwik with Docker on CoreOS or any system compatible
-with systemd.
+Use these files to deploy Piwik with Docker on CoreOS or any linux compatible
+with Docker.
 
 ## How to install
   1. Launch a new CoreOS instance.
