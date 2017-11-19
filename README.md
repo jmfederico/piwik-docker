@@ -5,7 +5,7 @@ Docker.
 
 ## How to install
   1. Launch a new CoreOS instance.
-  - Download piwik and extract to `/srv/pwk/`.
+  2. Download piwik and extract to `/srv/pwk/`.
 
     ```
     wget https://builds.piwik.org/piwik.zip
@@ -13,28 +13,28 @@ Docker.
     mv /srv/piwik /srv/pwk
     ```
 
-  - Make Piwik writable by php
+  3. Make Piwik writable by php
 
     ```
     chown -R 82:82 /srv/pwk/
     ```
 
-  - Copy the content of this repo to `/srv/Docker`.
-  - Download Docker Compose (Check version, as it will change!)
+  4. Copy the content of this repo to `/srv/Docker`.
+  5. Download Docker Compose (Check version, as it will change!)
 
     ```
     curl -L https://github.com/docker/compose/releases/download/1.17.0/docker-compose-`uname -s`-`uname -m` -o /opt/bin/docker-compose
     chmod +x /opt/bin/docker-compose
     ```
 
-  - Create your .env files and set variables values.
+  6. Create your .env files and set variables values.
 
     ```
     cp /srv/Docker/caddy/.env.example /srv/Docker/caddy/.env
     cp /srv/Docker/mariadb/.env.example /srv/Docker/mariadb/.env
     ```
 
-  - Build and run containers:
+  7. Build and run containers:
 
     ```
     cd /srv/Docker
@@ -42,7 +42,7 @@ Docker.
     docker-compose up -d
     ```
 
-  - Go to the domain you set on your .env file and that's it.
+  8. Go to the domain you set on your .env file and that's it.
 
 ## Questions:
 - Why /srv/pwk?
