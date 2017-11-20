@@ -5,13 +5,13 @@ services:
     env_file:
       - mariadb/.env
     volumes:
-      - ${BASE_DATA_DIR}/mariadb/backups:/srv/mysql-bak
-      - ${BASE_DATA_DIR}/mariadb/datadir:/var/lib/mysql
-      - ${BASE_DATA_DIR}/mariadb/conf:/etc/mysql/conf.d
+      - ${BASE_DATA_DIR:-/srv}/mariadb/backups:/srv/mysql-bak
+      - ${BASE_DATA_DIR:-/srv}/mariadb/datadir:/var/lib/mysql
+      - ${BASE_DATA_DIR:-/srv}/mariadb/conf:/etc/mysql/conf.d
     links:
       - mariadb
     labels:
-      cron.schedule: ${BACKUP_SCHEDULE}
+      cron.schedule: ${BACKUP_SCHEDULE:-@every 6h}
 
   container-crontab:
    image: rancher/container-crontab:v0.3.0
