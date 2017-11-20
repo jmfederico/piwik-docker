@@ -4,7 +4,7 @@ services:
     build: ./php-fpm
     restart: always
     volumes:
-      - /srv/pwk:/srv/caddy/html
+      - ${BASE_DATA_DIR}/pwk:/srv/caddy/html
     links:
       - mariadb
 
@@ -14,10 +14,8 @@ services:
     env_file:
       - mariadb/.env
     volumes:
-      - /srv/mariadb/datadir:/var/lib/mysql
-      - /srv/mariadb/conf:/etc/mysql/conf.d
-    environment:
-      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - ${BASE_DATA_DIR}/mariadb/datadir:/var/lib/mysql
+      - ${BASE_DATA_DIR}/mariadb/conf:/etc/mysql/conf.d
 
   caddy:
     build: ./caddy
@@ -28,7 +26,7 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - /srv/pwk:/srv/caddy/html
-      - /srv/caddy/config:/srv/caddy/.caddy
+      - ${BASE_DATA_DIR}/pwk:/srv/caddy/html
+      - ${BASE_DATA_DIR}/caddy/config:/srv/caddy/.caddy
     links:
       - php-fpm

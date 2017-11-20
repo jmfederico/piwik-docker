@@ -9,7 +9,7 @@ RUN mkdir -p /srv/caddy/html \
 
 WORKDIR /srv/caddy/html
 
-COPY Caddyfile /srv/caddy/
+COPY Caddyfile* /srv/caddy/
 
 EXPOSE 80/tcp
 EXPOSE 443/tcp

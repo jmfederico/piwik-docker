@@ -1,0 +1,6 @@
+{$DOMAIN} {
+  tls {$LETSENCRYPT_CERT} {$LETSENCRYPT_KEY}
+  fastcgi / php-fpm:9000 php {
+    root /srv/caddy/html
+  }
+}
