@@ -53,3 +53,12 @@ Docker.
 - Why Caddy?
 
   Because it is easy to use, and performs fast enough for my needs.
+
+- Is my database backed-up?
+
+  Yes, every 6 hours using [xtrabackup](xtrabackup) from [Percona](percona).
+  The backup files live in /srv/mariadb/backups. You should keep a copy of those
+  files somewhere safe.
+
+[xtrabackup]: https://www.percona.com/doc/percona-xtrabackup/LATEST/index.html
+[percona]: https://www.percona.com
