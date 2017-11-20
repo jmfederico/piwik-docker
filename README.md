@@ -38,11 +38,22 @@ Docker.
 
     ```
     cd /srv/Docker
-    docker-compose -f docker-compose.yml -f docker-compose.db-backup.yml build
-    docker-compose -f docker-compose.yml -f docker-compose.db-backup.yml up -d
+    docker-compose build
+    docker-compose up -d
     ```
 
   8. Go to the domain you set on your .env file and that's it.
+
+## Backing up the Database?
+
+  If your Piwik data is mission-critical, you should backup the database. To do
+  so deploy your containers with the following commands:
+
+  ```
+  cd /srv/Docker
+  docker-compose -f docker-compose.yml -f docker-compose.db-backup.yml build
+  docker-compose -f docker-compose.yml -f docker-compose.db-backup.yml up -d
+  ```
 
 ## Questions:
 - Why /srv/pwk?
@@ -54,11 +65,14 @@ Docker.
 
   Because it is easy to use, and performs fast enough for my needs.
 
-- Is my database backed-up?
+- How is my database backed-up?
 
-  Yes, every 6 hours using [xtrabackup][xtrabackup] from [Percona][percona].
+  [xtrabackup][xtrabackup] from [Percona][percona] is being used.
   The backup files live in /srv/mariadb/backups. You should keep a copy of those
   files somewhere safe.
+
+  A new full backup is run every 7 days, with incremental backups every 6 hours.
+  Backups are kept for 2 weeks.
 
 [xtrabackup]: https://www.percona.com/doc/percona-xtrabackup/LATEST/index.html
 [percona]: https://www.percona.com
