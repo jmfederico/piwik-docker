@@ -39,7 +39,7 @@ Docker.
     ```
     cd /srv/Docker
     docker-compose build
-    docker-compose up -d
+    docker-compose -f docker-compose.yml -f docker-compose.db-backup.yml up -d
     ```
 
   8. Go to the domain you set on your .env file and that's it.
