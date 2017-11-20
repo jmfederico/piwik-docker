@@ -38,7 +38,7 @@ Docker.
 
     ```
     cd /srv/Docker
-    docker-compose build
+    docker-compose -f docker-compose.yml -f docker-compose.db-backup.yml build
     docker-compose -f docker-compose.yml -f docker-compose.db-backup.yml up -d
     ```
 
