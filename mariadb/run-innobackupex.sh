@@ -2,7 +2,7 @@
 
 TMPFILE="/tmp/xtrabackup-runner.$$.tmp"
 USEROPTIONS="--user=root --password=${MYSQL_ROOT_PASSWORD} --host=mariadb"
-BACKDIR=/var/mysql-bak
+BACKDIR=/srv/mysql-bak
 BASEBACKDIR=$BACKDIR/base
 INCRBACKDIR=$BACKDIR/incr
 FULLBACKUPCYCLE=604800 # Create a new full backup every X seconds
