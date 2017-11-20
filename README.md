@@ -56,7 +56,7 @@ Docker.
 
 - Is my database backed-up?
 
-  Yes, every 6 hours using [xtrabackup](xtrabackup) from [Percona](percona).
+  Yes, every 6 hours using [xtrabackup][xtrabackup] from [Percona][percona].
   The backup files live in /srv/mariadb/backups. You should keep a copy of those
   files somewhere safe.
 
