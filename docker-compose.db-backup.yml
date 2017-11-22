@@ -14,7 +14,7 @@ services:
       cron.schedule: ${BACKUP_SCHEDULE:-@every 6h}
 
   container-crontab:
-    image: rancher/container-crontab:v0.3.0
+    image: rancher/container-crontab:v0.2.0
     restart: always
     container_name: crontab
     volumes:
