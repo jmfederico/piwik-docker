@@ -2,6 +2,8 @@ version: '2.1'
 services:
   php-fpm:
     build: ./php-fpm
+    labels:
+      autoheal: "true"
     restart: always
     volumes:
       - ${BASE_DATA_DIR:-/srv}/pwk:/srv/caddy/html
@@ -10,15 +12,24 @@ services:
 
   mariadb:
     image: mariadb:10
+    labels:
+      autoheal: "true"
     restart: always
     env_file:
       - mariadb/.env
     volumes:
       - ${BASE_DATA_DIR:-/srv}/mariadb/datadir:/var/lib/mysql
       - ${BASE_DATA_DIR:-/srv}/mariadb/conf:/etc/mysql/conf.d
+    healthcheck:
+      test: mysql --user=$$MYSQL_USER --password=$$MYSQL_PASSWORD --database=$$MYSQL_DATABASE -e "SELECT 1" >/dev/null || exit 1
+      interval: 30s
+      timeout: 3s
+      retries: 2
 
   caddy:
     build: ./caddy
+    labels:
+      autoheal: "true"
     restart: always
     env_file:
       - caddy/.env
@@ -30,3 +41,8 @@ services:
       - ${BASE_DATA_DIR:-/srv}/caddy/config:/srv/caddy/.caddy
     links:
       - php-fpm
+
+  autoheal:
+    image: willfarrell/autoheal
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
