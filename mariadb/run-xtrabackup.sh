@@ -89,12 +89,17 @@ then
     INCRBASEDIR=$LATESTINCR
   fi
 
+  TARGETDIR=$INCRBACKDIR/$LATEST/`date +%F_%H-%M-%S`
+
   # Create incremental Backup
-  xtrabackup --backup $USEROPTIONS --target-dir=$INCRBACKDIR/$LATEST/`date +%F_%H-%M-%S` --incremental-basedir=$INCRBASEDIR > $TMPFILE 2>&1
+  xtrabackup --backup $USEROPTIONS --target-dir=$TARGETDIR --incremental-basedir=$INCRBASEDIR > $TMPFILE 2>&1
 else
   echo 'New full backup'
+
+  TARGETDIR=$BASEBACKDIR/`date +%F_%H-%M-%S`
+
   # Create a new full backup
-  xtrabackup --backup $USEROPTIONS --target-dir=$BASEBACKDIR/`date +%F_%H-%M-%S` > $TMPFILE 2>&1
+  xtrabackup --backup $USEROPTIONS --target-dir=$TARGETDIR > $TMPFILE 2>&1
 fi
 
 if [ -z "`tail -1 $TMPFILE | grep 'completed OK!'`" ]
@@ -103,6 +108,7 @@ then
   echo "---------- ERROR OUTPUT from xtrabackup ----------"
   cat $TMPFILE
   rm -f $TMPFILE
+  rm -rf $TARGETDIR
   exit 1
 fi
 
