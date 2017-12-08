@@ -5,7 +5,7 @@ RUN apk add --no-cache libjpeg-turbo-dev libpng-dev freetype-dev \
     && docker-php-ext-install gd
 RUN apk add --no-cache fcgi
 
-COPY ping.conf /usr/local/etc/php-fpm.d/
+COPY php-fpm.d/*.conf /usr/local/etc/php-fpm.d/
 
 HEALTHCHECK --timeout=3s --interval=30s \
   CMD SCRIPT_NAME=/ping \
