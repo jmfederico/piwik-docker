@@ -58,7 +58,7 @@ Docker.
 ## Questions:
 - Why /srv/mtm?
 
-  So that I don't accidentally override any file in /srv/matomo by unziping
+  So that I don't accidentally override any file in /srv/matomo by unzipping
   matomo.zip by mistake.
 
 - Why Caddy?
