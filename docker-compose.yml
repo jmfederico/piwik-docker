@@ -6,7 +6,7 @@ services:
       autoheal: "true"
     restart: always
     volumes:
-      - ${BASE_DATA_DIR:-/srv}/pwk:/srv/caddy/html
+      - ${BASE_DATA_DIR:-/srv}/mtm:/srv/caddy/html
     links:
       - mariadb
 
@@ -37,7 +37,7 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ${BASE_DATA_DIR:-/srv}/pwk:/srv/caddy/html
+      - ${BASE_DATA_DIR:-/srv}/mtm:/srv/caddy/html
       - ${BASE_DATA_DIR:-/srv}/caddy/config:/srv/caddy/.caddy
     links:
       - php-fpm

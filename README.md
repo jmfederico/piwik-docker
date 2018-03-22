@@ -1,22 +1,22 @@
-# Piwik deployment with Docker
+# Matomo deployment with Docker
 
-Use these files to deploy Piwik with Docker on CoreOS or any linux running
+Use these files to deploy Matomo with Docker on CoreOS or any linux running
 Docker.
 
 ## How to install
   1. Launch a new CoreOS instance.
-  2. Download piwik and extract to `/srv/pwk/`.
+  2. Download matomo and extract to `/srv/mtm/`.
 
     ```
-    wget https://builds.piwik.org/piwik.zip
+    wget https://builds.matomo.org/piwik.zip
     unzip piwik.zip -d /srv
-    mv /srv/piwik /srv/pwk
+    mv /srv/piwik /srv/mtm
     ```
 
-  3. Make Piwik writable by php
+  3. Make Matomo writable by php
 
     ```
-    chown -R 82:82 /srv/pwk/
+    chown -R 82:82 /srv/mtm/
     ```
 
   4. Copy the content of this repo to `/srv/Docker`.
@@ -46,7 +46,7 @@ Docker.
 
 ## Backing up the Database?
 
-  If your Piwik data is mission-critical, you should backup the database. To do
+  If your Matomo data is mission-critical, you should backup the database. To do
   so deploy your containers with the following commands:
 
   ```
@@ -56,10 +56,10 @@ Docker.
   ```
 
 ## Questions:
-- Why /srv/pwk?
+- Why /srv/mtm?
 
-  So that I don't accidentally override any file in /srv/piwik by unziping
-  piwik.zip by mistake.
+  So that I don't accidentally override any file in /srv/matomo by unziping
+  matomo.zip by mistake.
 
 - Why Caddy?
 
