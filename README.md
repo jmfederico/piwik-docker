@@ -19,7 +19,7 @@ Docker.
     chown -R 82:82 /srv/mtm/
     ```
 
-  4. Copy the content of this repo to `/srv/Docker`.
+  4. Copy the content of this repository to `/srv/Docker`.
   5. Download Docker Compose (Check version, as it will change!)
 
     ```
