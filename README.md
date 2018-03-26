@@ -47,19 +47,21 @@ Docker.
 ## Backing up the Database?
 
   If your Matomo data is mission-critical, you should backup the database. To do
-  so deploy your containers with the following commands:
+  so, create a link named `docker-compose.override.yml` pointing to
+  `docker-compose.db-backup.yml`, this will deploy two more containers that will
+  regularly backup your database. Make sure you copy those files on a remote location.
 
   ```
   cd /srv/Docker
-  docker-compose -f docker-compose.yml -f docker-compose.db-backup.yml build
-  docker-compose -f docker-compose.yml -f docker-compose.db-backup.yml up -d
+  ln -s docker-compose.db-backup.yml docker-compose.override.yml
+  docker-compose build
+  docker-compose up -d
   ```
 
 ## Questions:
 - Why /srv/mtm?
 
-  So that I don't accidentally override any file in /srv/matomo by unzipping
-  matomo.zip by mistake.
+  So that I don't accidentally override any files by unzipping matomo.zip by mistake.
 
 - Why Caddy?
 
