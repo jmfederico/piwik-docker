@@ -41,18 +41,6 @@ then
   exit 1
 fi
 
-if [ -z "`mysqladmin $USEROPTIONS status | grep 'Uptime'`" ]
-then
-  echo "HALTED: MySQL does not appear to be running."; echo
-  exit 1
-fi
-
-if ! `echo 'exit' | /usr/bin/mysql -s $USEROPTIONS`
-then
-  echo "HALTED: Supplied mysql username or password appears to be incorrect (not copied here for security, see script)"; echo
-  exit 1
-fi
-
 echo "Check completed OK"
 
 # Find latest backup directory

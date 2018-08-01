@@ -1,4 +1,4 @@
-version: '2.1'
+version: '3.7'
 services:
   php-fpm:
     build: ./php-fpm
@@ -7,19 +7,17 @@ services:
     restart: always
     volumes:
       - ${BASE_DATA_DIR:-/srv}/mtm:/srv/caddy/html
-    links:
-      - mariadb
 
-  mariadb:
-    image: mariadb:10
+  mysql:
+    image: mysql:5.7
     labels:
       autoheal: "true"
     restart: always
     env_file:
-      - mariadb/.env
+      - mysql/.env
     volumes:
-      - ${BASE_DATA_DIR:-/srv}/mariadb/datadir:/var/lib/mysql
-      - ${BASE_DATA_DIR:-/srv}/mariadb/conf:/etc/mysql/conf.d
+      - ${BASE_DATA_DIR:-/srv}/mysql/datadir:/var/lib/mysql
+      - ${BASE_DATA_DIR:-/srv}/mysql/conf:/etc/mysql/conf.d
     healthcheck:
       test: mysql --user=$$MYSQL_USER --password=$$MYSQL_PASSWORD --database=$$MYSQL_DATABASE -e "SELECT 1" >/dev/null || exit 1
       interval: 30s
@@ -33,14 +31,9 @@ services:
     restart: always
     env_file:
       - caddy/.env
-    ports:
-      - 80:80
-      - 443:443
     volumes:
       - ${BASE_DATA_DIR:-/srv}/mtm:/srv/caddy/html
       - ${BASE_DATA_DIR:-/srv}/caddy/config:/srv/caddy/.caddy
-    links:
-      - php-fpm
 
   autoheal:
     image: willfarrell/autoheal

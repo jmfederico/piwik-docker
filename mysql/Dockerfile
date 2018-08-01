@@ -1,4 +1,4 @@
-FROM mariadb:10
+FROM perconalab/percona-xtrabackup
 
 RUN mkdir -p /srv/mysql-bak
 COPY run-xtrabackup.sh /usr/local/bin/run-xtrabackup

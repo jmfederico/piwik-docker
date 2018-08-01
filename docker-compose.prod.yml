@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+  mysql-backup:
+    build: ./mysql
+    env_file:
+      - mysql/.env
+    volumes:
+      - ${BASE_DATA_DIR:-/srv}/mysql/backups:/srv/mysql-bak
+      - ${BASE_DATA_DIR:-/srv}/mysql/datadir:/var/lib/mysql
+      - ${BASE_DATA_DIR:-/srv}/mysql/conf:/etc/mysql/conf.d
+    labels:
+      cron.schedule: ${BACKUP_SCHEDULE:-@every 6h}
+
+  caddy:
+    networks:
+      - default
+      - proxy
+
+networks:
+  proxy:
+    external: true
